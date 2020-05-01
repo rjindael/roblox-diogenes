@@ -34,22 +34,22 @@ int main()
     std::ifstream diogenes(file_path);
     std::string result_path = current_directory() + "diogenes_output.fnt";
     std::ofstream result(result_path.c_str(), std::ios::binary);
-    
+
     std::string line;
     if (diogenes.is_open() && result.is_open())
     {
-        while (getline(in_file, line, '\n'))
+        while (getline(diogenes, line, '\n'))
         {
             crypt(line);
             result << line << std::endl;
         }
     }
-    
+
     // Exit
     diogenes.close();
     result.close();
     std::cout << "Successfully written new diogenes file to '" << result_path << "'!" << std::endl;
     system("pause");
-    
+
     return 0;
 }
