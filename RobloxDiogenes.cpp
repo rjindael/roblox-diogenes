@@ -24,29 +24,31 @@ std::string current_directory()
 int main()
 {
     // Why am I signing my name off on this, lol
-    std::cout << "Roblox Diogenes Fun v1.0\nBy lightbulblighter\n" << std::endl;
+    std::cout << "RobloxDiogenes v1.1\nBy lightbulblighter\n" << std::endl;
 
     std::string file_path;
     std::cout << "Enter diogenes path to encrypt/decrypt: ";
     std::cin >> file_path;
 
     // Worker
+    std::ifstream diogenes(file_path);
+    std::string result_path = current_directory() + "diogenes_output.fnt";
+    std::ofstream result(result_path.c_str(), std::ios::binary);
+    
     std::string line;
-    std::ifstream in_file(file_path);
-    std::string out_file_path = current_directory() + "diogenes_output.fnt";
-    std::ofstream out_file(out_file_path.c_str());
-
-    if (in_file.is_open() && out_file.is_open())
+    if (diogenes.is_open() && result.is_open())
     {
         while (getline(in_file, line, '\n'))
         {
             crypt(line);
-            out_file << line << std::endl;
+            result << line << std::endl;
         }
     }
-
+    
     // Exit
-    std::cout << "Successfully written new diogenes file to " << out_file_path << "!" << std::endl;
+    diogenes.close();
+    result.close();
+    std::cout << "Successfully written new diogenes file to '" << result_path << "'!" << std::endl;
     system("pause");
     
     return 0;
